@@ -13,7 +13,7 @@ var secretKey = []byte("your_secret_key")
 func parseJWT(tokenString string) (string, error) {
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		return secretKey, nil
-	});
+	})
 	if err != nil {
 		fmt.Println("Error parsing token: ", err)
 		return "", err
@@ -31,7 +31,7 @@ func parseJWT(tokenString string) (string, error) {
 	return "", fmt.Errorf("Invalid token")
 }
 
-func JwtMiddleware (next http.Handler) http.Handler {
+func JwtMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		authHeader := r.Header.Get("Authorization")
 		if authHeader == "" {
